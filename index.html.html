@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>তৃপ্তি হোম ডেলিভারি সার্ভিস</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a1a;
+    --forest-mid: #2d5a2d;
+    --forest-light: #3d7a3d;
+    --gold: #f5c842;
+    --gold-light: #ffd966;
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --cream: #fef9f0;
+    --warm: #f9f1e0;
+    --text-dark: #1a1a1a;
+    --text-mid: #333;
+    --white: #ffffff;
+    --shadow: rgba(0,0,0,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Hind Siliguri', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(26,58,26,0.97);
+    backdrop-filter: blur(10px);
+    padding: 12px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--gold);
+  }
+  .nav-logo {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a {
+    color: var(--cream); font-size: 0.9rem; text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-phone {
+    background: var(--red);
+    color: white; padding: 8px 16px; border-radius: 20px;
+    font-weight: 600; font-size: 0.85rem; text-decoration: none;
+    transition: background 0.3s;
+  }
+  .nav-phone:hover { background: var(--red-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--forest) 0%, var(--forest-mid) 50%, #1e4a20 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--red);
+    color: white; font-size: 0.85rem; font-weight: 600;
+    padding: 6px 18px; border-radius: 20px; margin-bottom: 20px;
+    letter-spacing: 1px;
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.15;
+    margin-bottom: 12px;
+    animation: fadeDown 0.9s ease 0.1s both;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 10px;
+    animation: fadeDown 1s ease 0.2s both;
+  }
+  .hero-tagline {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 32px;
+    animation: fadeDown 1s ease 0.3s both;
+  }
+  .hero-food-emoji {
+    font-size: 3.5rem; margin-bottom: 20px; display: block;
+    animation: float 3s ease-in-out infinite;
+  }
+  .hero-cta {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeDown 1s ease 0.4s both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--forest);
+    padding: 14px 32px; border-radius: 30px;
+    font-weight: 700; font-size: 1rem; text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(245,200,66,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(245,200,66,0.5); }
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 14px 32px; border-radius: 30px;
+    font-weight: 600; font-size: 1rem; text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  /* FOOD IMAGES STRIP */
+  .food-strip {
+    background: var(--forest);
+    padding: 20px 0;
+    overflow: hidden;
+  }
+  .food-strip-inner {
+    display: flex; gap: 16px;
+    animation: scroll 30s linear infinite;
+    width: max-content;
+  }
+  .food-strip-item {
+    width: 120px; height: 80px; border-radius: 10px; overflow: hidden;
+    flex-shrink: 0;
+  }
+  .food-strip-item img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* SECTION STYLES */
+  .section { padding: 80px 5%; }
+  .section-alt { background: var(--warm); }
+  .section-dark { background: var(--forest); color: white; }
+
+  .section-header { text-align: center; margin-bottom: 50px; }
+  .section-label {
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 3px;
+    color: var(--red); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--forest);
+    line-height: 1.2;
+  }
+  .section-dark .section-title { color: var(--gold); }
+  .section-title span { color: var(--red); }
+  .section-divider {
+    width: 60px; height: 4px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    border-radius: 2px; margin: 14px auto 0;
+  }
+
+  /* STATS */
+  .stats-bar {
+    background: var(--red);
+    padding: 30px 5%;
+    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; color: white; }
+  .stat-number {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 2rem; font-weight: 900;
+    display: block;
+  }
+  .stat-label { font-size: 0.85rem; opacity: 0.9; }
+
+  /* MENU CARDS */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .menu-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .menu-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+  .card-img {
+    height: 180px; overflow: hidden; position: relative;
+  }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .menu-card:hover .card-img img { transform: scale(1.08); }
+  .card-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--red); color: white;
+    font-size: 0.75rem; font-weight: 700;
+    padding: 4px 10px; border-radius: 12px;
+  }
+  .card-body { padding: 18px 20px 20px; }
+  .card-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 8px;
+  }
+  .card-desc { font-size: 0.85rem; color: #666; line-height: 1.5; margin-bottom: 14px; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .card-price {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--red);
+  }
+  .card-price span { font-size: 0.85rem; color: #999; font-weight: 400; }
+  .card-tag {
+    background: rgba(26,58,26,0.1);
+    color: var(--forest);
+    font-size: 0.75rem; font-weight: 600;
+    padding: 4px 10px; border-radius: 10px;
+  }
+
+  /* SPECIAL THALI */
+  .thali-section { max-width: 1100px; margin: 0 auto; }
+  .thali-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .thali-card {
+    border-radius: 20px; overflow: hidden;
+    position: relative;
+    min-height: 400px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .thali-card-bg {
+    position: absolute; inset: 0;
+  }
+  .thali-card-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .thali-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  }
+  .thali-card-content { position: relative; z-index: 1; padding: 28px; color: white; }
+  .thali-price-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--forest);
+    font-size: 1.5rem; font-weight: 900;
+    font-family: 'Noto Serif Bengali', serif;
+    padding: 8px 20px; border-radius: 30px;
+    margin-bottom: 12px;
+  }
+  .thali-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;
+    color: var(--gold-light);
+  }
+  .thali-desc { font-size: 0.85rem; opacity: 0.9; line-height: 1.5; }
+  .thali-items {
+    margin-top: 12px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .thali-item-tag {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white; font-size: 0.75rem;
+    padding: 3px 10px; border-radius: 10px;
+  }
+
+  /* BREAKFAST */
+  .breakfast-table {
+    max-width: 800px; margin: 0 auto;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+  }
+  .breakfast-table table {
+    width: 100%; border-collapse: collapse;
+  }
+  .breakfast-table thead th {
+    background: var(--forest);
+    color: var(--gold);
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.1rem; font-weight: 700;
+    padding: 16px 20px; text-align: left;
+  }
+  .breakfast-table tbody tr {
+    background: white;
+    transition: background 0.2s;
+  }
+  .breakfast-table tbody tr:nth-child(even) { background: #f9f7f0; }
+  .breakfast-table tbody tr:hover { background: #fff8e8; }
+  .breakfast-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0ece0;
+    font-size: 0.95rem;
+  }
+  .breakfast-table td:last-child {
+    text-align: right;
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--red);
+    font-family: 'Noto Serif Bengali', serif;
+  }
+
+  /* DINNER */
+  .dinner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .dinner-panel {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(245,200,66,0.25);
+    border-radius: 16px; padding: 28px;
+  }
+  .dinner-panel h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.3rem; color: var(--gold);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(245,200,66,0.25);
+  }
+  .dinner-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.9rem; color: rgba(255,255,255,0.85);
+  }
+  .dinner-item:last-child { border-bottom: none; }
+  .dinner-item-price {
+    color: var(--gold); font-weight: 700;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1rem;
+    flex-shrink: 0; margin-left: 12px;
+  }
+
+  /* PACKAGE */
+  .package-box {
+    max-width: 700px; margin: 0 auto;
+    background: linear-gradient(135deg, var(--forest-mid), var(--forest));
+    border: 3px solid var(--gold);
+    border-radius: 24px; padding: 40px;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+  }
+  .package-price {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 4rem; font-weight: 900;
+    color: var(--gold); line-height: 1;
+  }
+  .package-price sub { font-size: 1.5rem; vertical-align: super; }
+  .package-label {
+    color: rgba(255,255,255,0.8); font-size: 1rem; margin-bottom: 28px;
+  }
+  .package-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.6rem; color: white; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .week-schedule {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin: 28px 0;
+  }
+  .day-item {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 14px 10px;
+    color: white;
+  }
+  .day-name { font-size: 0.8rem; opacity: 0.7; margin-bottom: 4px; }
+  .day-food { font-size: 0.9rem; font-weight: 600; color: var(--gold-light); }
+
+  /* TEA & DRINKS */
+  .tea-drinks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .tea-card, .drinks-card {
+    background: white;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .tea-card-header, .drinks-card-header {
+    padding: 22px 24px;
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: white;
+  }
+  .tea-card-header { background: linear-gradient(135deg, #3d2b1f, #5a3d28); }
+  .drinks-card-header { background: linear-gradient(135deg, #1a3a6a, #2a5a9a); }
+  .tea-list, .drinks-list { padding: 16px 0; }
+  .tea-list-item, .drinks-list-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f5f0e8;
+    transition: background 0.2s;
+  }
+  .tea-list-item:hover, .drinks-list-item:hover { background: #fffbf2; }
+  .tea-list-item:last-child, .drinks-list-item:last-child { border-bottom: none; }
+  .item-price { font-weight: 700; color: var(--red); }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--forest);
+    color: white;
+    padding: 80px 5%;
+  }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 50px; max-width: 1000px; margin: 0 auto; align-items: center;
+  }
+  .contact-info h2 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 2rem; color: var(--gold); margin-bottom: 20px;
+  }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .contact-icon {
+    width: 42px; height: 42px;
+    background: rgba(245,200,66,0.15);
+    border: 1px solid rgba(245,200,66,0.3);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-text { color: rgba(255,255,255,0.85); line-height: 1.6; font-size: 0.95rem; }
+  .contact-text strong { color: white; display: block; }
+  .contact-phone-btns { display: flex; flex-direction: column; gap: 12px; }
+  .phone-btn {
+    background: var(--gold);
+    color: var(--forest);
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 24px; border-radius: 14px;
+    text-decoration: none; font-weight: 700; font-size: 1.1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(245,200,66,0.3);
+  }
+  .phone-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(245,200,66,0.45); }
+  .phone-btn-icon { font-size: 1.3rem; }
+  .order-note {
+    margin-top: 24px;
+    background: rgba(192,57,43,0.2);
+    border: 1px solid rgba(192,57,43,0.4);
+    border-radius: 12px; padding: 16px 20px;
+    font-size: 0.85rem; color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+  }
+  .order-note strong { color: var(--gold-light); }
+
+  /* RULES */
+  .rules-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px; max-width: 1100px; margin: 0 auto;
+  }
+  .rule-item {
+    background: white;
+    border-radius: 12px; padding: 18px 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--forest);
+  }
+  .rule-num {
+    width: 30px; height: 30px;
+    background: var(--forest); color: var(--gold);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+  }
+  .rule-text { font-size: 0.88rem; color: #444; line-height: 1.55; }
+
+  /* FOOTER */
+  footer {
+    background: #0f2010;
+    color: rgba(255,255,255,0.6);
+    text-align: center; padding: 30px 5%;
+    font-size: 0.85rem;
+    border-top: 2px solid var(--gold);
+  }
+  footer .footer-logo {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 1.5rem; color: var(--gold); font-weight: 700;
+    display: block; margin-bottom: 8px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .thali-grid, .dinner-grid, .tea-drinks-grid, .contact-grid { grid-template-columns: 1fr; }
+    .week-schedule { grid-template-columns: repeat(2, 1fr); }
+    .stats-bar { gap: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">🍽 তৃপ্তি</a>
+  <ul class="nav-links">
+    <li><a href="#lunch">লাঞ্চ</a></li>
+    <li><a href="#breakfast">ব্রেকফাস্ট</a></li>
+    <li><a href="#dinner">ডিনার</a></li>
+    <li><a href="#drinks">পানীয়</a></li>
+    <li><a href="#contact">যোগাযোগ</a></li>
+  </ul>
+  <a href="tel:7384871985" class="nav-phone">📞 অর্ডার করুন</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">✨ ঘরোয়া রান্নার আসল ঠিকানা</span>
+    <span class="hero-food-emoji">🍛</span>
+    <h1>তৃপ্তি হোম ডেলিভারি সার্ভিস</h1>
+    <p class="hero-subtitle">প্রোঃ মৌপিয়া দত্ত — সোনামুখী, বাঁকুড়া</p>
+    <p class="hero-tagline">বাঙালির গর্ব, বাঙালির ঐতিহ্যবাহী খাবার।</p>
+    <div class="hero-cta">
+      <a href="tel:7384871985" class="btn-primary">📞 এখনই অর্ডার করুন</a>
+      <a href="#lunch" class="btn-secondary">মেনু দেখুন ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD IMAGE STRIP -->
+<div class="food-strip">
+  <div class="food-strip-inner">
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=200&q=80" alt="Bengali food"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=200&q=80" alt="Rice dish"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=200&q=80" alt="Curry"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=200&q=80" alt="Fish curry"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=200&q=80" alt="Chicken"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=200&q=80" alt="Sweets"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=200&q=80" alt="Dal"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=200&q=80" alt="Thali"></div>
+    <!-- Duplicate for loop -->
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=200&q=80" alt="Bengali food"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=200&q=80" alt="Rice dish"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=200&q=80" alt="Curry"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=200&q=80" alt="Fish curry"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=200&q=80" alt="Chicken"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=200&q=80" alt="Sweets"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=200&q=80" alt="Dal"></div>
+    <div class="food-strip-item"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=200&q=80" alt="Thali"></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-number">৬</span>
+    <span class="stat-label">দিন সার্ভিস (রবিবার ছাড়া)</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">₹৫৯</span>
+    <span class="stat-label">থেকে শুরু লাঞ্চ</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">২ কিমি</span>
+    <span class="stat-label">বিনামূল্যে ডেলিভারি</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number">১০০%</span>
+    <span class="stat-label">ঘরোয়া রান্না</span>
+  </div>
+</div>
+
+<!-- LUNCH MENU -->
+<section id="lunch" class="section">
+  <div class="section-header">
+    <div class="section-label">Lunch Menu</div>
+    <h2 class="section-title">আমাদের <span>লাঞ্চ মেনু</span></h2>
+    <p style="color:#666;margin-top:8px;font-size:0.95rem;">অর্ডার সময়: সকাল ৮টা – ৯টা | ডেলিভারি: দুপুর ১.৩০টার মধ্যে</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&q=80" alt="Veg thali">
+        <span class="card-badge">🌿 নিরামিষ</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">নিরামিষ সবজি ভাত</div>
+        <div class="card-desc">ভাত, ডাল, যেকোনো এক রকমের ভাজা, দুই রকমের সবজি, চাটনি।</div>
+        <div class="card-footer">
+          <div class="card-price">₹৫৯ <span>/ প্লেট</span></div>
+          <span class="card-tag">Veg</span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&q=80" alt="Egg rice">
+        <span class="card-badge">🥚 ডিম</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">ডিম ভাত</div>
+        <div class="card-desc">ভাত, ডাল, যেকোনো এক রকমের ভাজা, এক রকমের সবজি, দুই পিস ডিমের কারি, চাটনি।</div>
+        <div class="card-footer">
+          <div class="card-price">₹৬৯ <span>/ প্লেট</span></div>
+          <span class="card-tag">Non-Veg</span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" alt="Fish rice">
+        <span class="card-badge">🐟 মাছ</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">মাছ ভাত</div>
+        <div class="card-desc">ভাত, ডাল, যেকোনো এক রকমের ভাজা, এক রকমের সবজি, এক পিস কাটা মাছের / গোটা চারাপোনা মাছের ঝোল, চাটনি।</div>
+        <div class="card-footer">
+          <div class="card-price">₹৭৯ <span>/ প্লেট</span></div>
+          <span class="card-tag">Non-Veg</span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400&q=80" alt="Chicken rice">
+        <span class="card-badge">🍗 চিকেন</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">মাংস (Chicken) ভাত</div>
+        <div class="card-desc">ভাত, ডাল, যেকোনো এক রকমের ভাজা, এক রকমের সবজি, মাংস (৪ পিস), চাটনি।</div>
+        <div class="card-footer">
+          <div class="card-price">₹৯৯ <span>/ প্লেট</span></div>
+          <span class="card-tag">Non-Veg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONTHLY PACKAGE -->
+<section class="section section-alt">
+  <div class="section-header">
+    <div class="section-label">Special Package</div>
+    <h2 class="section-title">পুরো মাসের <span>লাঞ্চ প্যাকেজ</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="package-box">
+    <div class="package-price">₹২০০০</div>
+    <div class="package-label">মাত্র / প্রতি মাসে (রবিবার ছাড়া)</div>
+    <div class="package-title">সাপ্তাহিক মেনু</div>
+    <div class="week-schedule">
+      <div class="day-item"><div class="day-name">সোমবার</div><div class="day-food">🐟 মাছ</div></div>
+      <div class="day-item"><div class="day-name">মঙ্গলবার</div><div class="day-food">🥚 ডিম</div></div>
+      <div class="day-item"><div class="day-name">বুধবার</div><div class="day-food">🍗 চিকেন</div></div>
+      <div class="day-item"><div class="day-name">বৃহস্পতিবার</div><div class="day-food">🌿 সবজি</div></div>
+      <div class="day-item"><div class="day-name">শুক্রবার</div><div class="day-food">🐟 মাছ</div></div>
+      <div class="day-item"><div class="day-name">শনিবার</div><div class="day-food">🌿 সবজি</div></div>
+    </div>
+    <a href="tel:7384871985" class="btn-primary" style="display:inline-block;margin-top:10px;">এখনই বুক করুন</a>
+  </div>
+</section>
+
+<!-- SPECIAL THALI -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-label">Special Thali</div>
+    <h2 class="section-title">তৃপ্তি <span>স্পেশাল থালি</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="thali-section">
+    <div class="thali-grid">
+      <div class="thali-card">
+        <div class="thali-card-bg">
+          <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Veg Thali">
+        </div>
+        <div class="thali-card-overlay"></div>
+        <div class="thali-card-content">
+          <div class="thali-price-tag">₹১৭৯</div>
+          <div class="thali-title">তৃপ্তি স্পেশাল ভেজ থালি</div>
+          <div class="thali-desc">"স্বাদে, গুণে ও পরিমাণে সম্পূর্ণ তৃপ্তির প্রতিশ্রুতি"</div>
+          <div class="thali-items">
+            <span class="thali-item-tag">বাসমতি ভাত</span>
+            <span class="thali-item-tag">ঘি</span>
+            <span class="thali-item-tag">রুটি (২টা)</span>
+            <span class="thali-item-tag">স্যালাড</span>
+            <span class="thali-item-tag">বেগুনি</span>
+            <span class="thali-item-tag">চাপ ডাল</span>
+            <span class="thali-item-tag">মিক্সড সবজি</span>
+            <span class="thali-item-tag">পনির কারি</span>
+            <span class="thali-item-tag">আলুপোস্ত</span>
+            <span class="thali-item-tag">চাটনি</span>
+            <span class="thali-item-tag">পাঁপড়</span>
+            <span class="thali-item-tag">রসগোল্লা</span>
+          </div>
+        </div>
+      </div>
+      <div class="thali-card">
+        <div class="thali-card-bg">
+          <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80" alt="Non-Veg Thali">
+        </div>
+        <div class="thali-card-overlay"></div>
+        <div class="thali-card-content">
+          <div class="thali-price-tag">₹১৯৯</div>
+          <div class="thali-title">তৃপ্তি স্পেশাল ডিলাক্স নন-ভেজ থালি</div>
+          <div class="thali-desc">"স্বাদে, গুণে ও পরিমাণে সম্পূর্ণ তৃপ্তির প্রতিশ্রুতি"</div>
+          <div class="thali-items">
+            <span class="thali-item-tag">বাসমতি ভাত</span>
+            <span class="thali-item-tag">রুটি (২টা)</span>
+            <span class="thali-item-tag">মুগ/মাসুর ডাল</span>
+            <span class="thali-item-tag">চিকেন কষা (৩ পিস)</span>
+            <span class="thali-item-tag">পনির বাটার মাসালা</span>
+            <span class="thali-item-tag">আলুপোস্ত</span>
+            <span class="thali-item-tag">ক্রিস্পি আলুভাজা</span>
+            <span class="thali-item-tag">স্যালাড</span>
+            <span class="thali-item-tag">পাঁপড়</span>
+            <span class="thali-item-tag">চাটনি</span>
+            <span class="thali-item-tag">রসগোল্লা / পায়েস</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Special Add-ons -->
+  <div style="max-width:700px;margin:30px auto 0;background:white;border-radius:16px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+    <h3 style="font-family:'Noto Serif Bengali',serif;color:var(--forest);margin-bottom:18px;font-size:1.2rem;">স্পেশাল আইটেম (১ সেট/১ বাটি)</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;">
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>আলুপোস্ত</span><strong style="color:var(--red)">₹৪০</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>মাশরুম</span><strong style="color:var(--red)">₹৮০</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>রুইপোস্ত</span><strong style="color:var(--red)">₹৫০</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>ডিম সিদ্ধ</span><strong style="color:var(--red)">₹১০</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>কাটা মাছের ঝাল</span><strong style="color:var(--red)">₹৪০</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>পনির কারি</span><strong style="color:var(--red)">₹৬০</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>চিকেন কষা (৮ পিস)</span><strong style="color:var(--red)">₹১৪৯</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>চিলি চিকেন (৮ পিস)</span><strong style="color:var(--red)">₹১৭৯</strong></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9f7f0;border-radius:8px;font-size:0.9rem;"><span>মটন কষা (৪ পিস)</span><strong style="color:var(--red)">₹২৪৯</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- BREAKFAST -->
+<section id="breakfast" class="section section-alt">
+  <div class="section-header">
+    <div class="section-label">Breakfast Menu</div>
+    <h2 class="section-title">সুস্বাদু বাঙালি <span>ব্রেকফাস্ট</span></h2>
+    <p style="color:#666;margin-top:8px;font-size:0.95rem;">অর্ডার সময়: সকাল ৯টার মধ্যে | ডেলিভারি: সকাল ১১টার মধ্যে</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="breakfast-table">
+    <table>
+      <thead>
+        <tr>
+          <th>টিফিনের খাবার</th>
+          <th style="text-align:right;color:var(--gold-light)">মূল্য</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🫓 লুচি / পুরি (৬ পিস) — ঘুগনি / আলুর দম + স্যালাড</td><td>₹৫৫</td></tr>
+        <tr><td>🫓 পরোটা (৩ পিস) — আলুভাজা / আলুর দম, স্যালাড, মিষ্টি আচার</td><td>₹৫৫</td></tr>
+        <tr><td>🫓 রুটি (৪ পিস) — ঘুগনি, ১টি ডিমসিদ্ধ, স্যালাড</td><td>₹৫০</td></tr>
+        <tr><td>🥚 ডবল ডিমের টোস্ট / অমলেট টোস্ট (২ পিস) — স্যালাড, শস্‍</td><td>₹৪০</td></tr>
+        <tr><td>🍜 ম্যাগী সুপ (১ প্লেট)</td><td>₹৪০</td></tr>
+        <tr><td>🍞 স্লাইস বাটার ব্রেড ৫ পিস, ১টি ডিমসিদ্ধ, ২টি কলা</td><td>₹৫৫</td></tr>
+        <tr><td>🍇 Fruit Jelly Spread Slice Bread ৫ পিস, ১টি ডিমসিদ্ধ, ২টি কলা</td><td>₹৫৫</td></tr>
+        <tr><td>🍓 Seasonal Mix Fresh Fruit Bowl (৬ ধরনের ফল, ২৫০ গ্রাম) [Premium]</td><td>₹১৪৯</td></tr>
+        <tr><td>🌾 ১০০ গ্রাম মুড়ি ও ২ পিস ঘরে ভাজা বেগুনি, শশা ও কাঁচা লংকা</td><td>₹৪০</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- DINNER -->
+<section id="dinner" class="section section-dark">
+  <div class="section-header">
+    <div class="section-label" style="color:var(--gold-light)">Dinner Menu</div>
+    <h2 class="section-title">রাতের <span>ডিনার</span></h2>
+    <p style="color:rgba(255,255,255,0.65);margin-top:8px;font-size:0.95rem;">অর্ডার সময়: বিকেল ৩টা – ৫টা | ডেলিভারি: রাত ৯টা – ৯.৩০টা</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="dinner-grid">
+    <div class="dinner-panel">
+      <h3>🍽 ডিনার আইটেম</h3>
+      <div class="dinner-item"><span>মিনিকিট চালের ভাত (Rice Plate)</span><span class="dinner-item-price">₹৩০</span></div>
+      <div class="dinner-item"><span>রুটি (৪টি) + ১ রকমের সবজি</span><span class="dinner-item-price">₹৩৫</span></div>
+      <div class="dinner-item"><span>তড়কা (১ সেট)</span><span class="dinner-item-price">₹৬০</span></div>
+      <div class="dinner-item"><span>ডিম তড়কা (১ সেট)</span><span class="dinner-item-price">₹৮০</span></div>
+      <div class="dinner-item"><span>মটর পনির কারি (১ বাটি)</span><span class="dinner-item-price">₹৫০</span></div>
+      <div class="dinner-item"><span>ছোলার ডাল (১ বাটি)</span><span class="dinner-item-price">₹৩০</span></div>
+      <div class="dinner-item"><span>২টি ডিমের কারি (Egg Curry)</span><span class="dinner-item-price">₹৪০</span></div>
+      <div class="dinner-item"><span>ডবল ডিমের অমলেট</span><span class="dinner-item-price">₹৩০</span></div>
+      <div class="dinner-item"><span>চিকেন কষা (৬ পিস)</span><span class="dinner-item-price">₹৯০</span></div>
+      <div class="dinner-item"><span>আলুভাজা (১ সেট)</span><span class="dinner-item-price">₹২০</span></div>
+      <div class="dinner-item"><span>স্যালাড (১ বাটি)</span><span class="dinner-item-price">₹১৫</span></div>
+      <div class="dinner-item"><span>রসগোল্লা (১টি)</span><span class="dinner-item-price">₹১৫</span></div>
+      <div class="dinner-item"><span>টক দই (ছোট ১ বাটি)</span><span class="dinner-item-price">₹২০</span></div>
+    </div>
+    <div class="dinner-panel">
+      <h3>🌟 বিশেষ ডিনার মিল সেট</h3>
+      <div class="dinner-item"><span>ভাত + আলুপোস্ত + ডিমের কারি/অমলেট + স্যালাড</span><span class="dinner-item-price">₹৯০</span></div>
+      <div class="dinner-item"><span>ভাত + আলুপোস্ত + চিকেন কষা (৫ পিস) + স্যালাড</span><span class="dinner-item-price">₹১৪৯</span></div>
+      <div class="dinner-item"><span>রুটি (৪ পিস) + ডাল/সবজি + ডবল ডিমের অমলেট + স্যালাড</span><span class="dinner-item-price">₹৭৫</span></div>
+      <div class="dinner-item"><span>রুটি (৪ পিস) + তড়কা + ডিমের অমলেট + স্যালাড</span><span class="dinner-item-price">₹৯০</span></div>
+      <div class="dinner-item"><span>রুটি (৪ পিস) + চিকেন কষা (৫ পিস) + স্যালাড</span><span class="dinner-item-price">₹১৩০</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEA & DRINKS -->
+<section id="drinks" class="section section-alt">
+  <div class="section-header">
+    <div class="section-label">Tea & Drinks</div>
+    <h2 class="section-title">চা ও <span>শরবত</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="tea-drinks-grid">
+    <div class="tea-card">
+      <div class="tea-card-header">☕ চা মেনু (Tea Menu) — ৩০ মিলি কাপ</div>
+      <div class="tea-list">
+        <div class="tea-list-item"><span>সাধারণ দুধ চা</span><span class="item-price">₹৮</span></div>
+        <div class="tea-list-item"><span>স্পেশাল দুধ চা (Milk Tea)</span><span class="item-price">₹১০</span></div>
+        <div class="tea-list-item"><span>আদা চা (Ginger Tea)</span><span class="item-price">₹১০</span></div>
+        <div class="tea-list-item"><span>লেবু চা (Lemon Tea)</span><span class="item-price">₹১৫</span></div>
+        <div class="tea-list-item"><span>গ্রিন টি (Green Tea)</span><span class="item-price">₹২০</span></div>
+      </div>
+      <div style="padding:12px 24px;font-size:0.8rem;color:#888;border-top:1px solid #f0ece0;">
+        📝 মিনিমাম ১০ কাপ অর্ডার | ডেলিভারি: সকাল ৭টা – সন্ধ্যা ৭টা
+      </div>
+    </div>
+    <div class="drinks-card">
+      <div class="drinks-card-header">🥤 শরবত মেনু — ডেলিভারি: সকাল ৯টা – বিকেল ৩টা</div>
+      <div class="drinks-list">
+        <div class="drinks-list-item"><span>লেবুর শরবৎ</span><span class="item-price">₹২০</span></div>
+        <div class="drinks-list-item"><span>গনেশ ছাতুর শরবৎ</span><span class="item-price">₹২৫</span></div>
+        <div class="drinks-list-item"><span>তরমুজ শরবৎ</span><span class="item-price">₹৩০</span></div>
+        <div class="drinks-list-item"><span>কমলা শরবৎ</span><span class="item-price">₹৩০</span></div>
+        <div class="drinks-list-item"><span>বেল শরবৎ</span><span class="item-price">₹৩৫</span></div>
+        <div class="drinks-list-item"><span>আম পোড়া শরবৎ</span><span class="item-price">₹২৫</span></div>
+      </div>
+      <div style="padding:12px 24px;font-size:0.8rem;color:#888;border-top:1px solid #f0ece0;">
+        📝 মিনিমাম ২ গ্লাস অর্ডার | তরমুজ, কমলা, বেল ও আমপোড়া শরবতের জন্য ১ দিন আগে অর্ডার করুন
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-label">Terms & Conditions</div>
+    <h2 class="section-title">গুরুত্বপূর্ণ <span>নিয়মাবলি</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="rules-grid">
+    <div class="rule-item"><div class="rule-num">১</div><div class="rule-text">সমস্ত খাবার পরিষ্কার ও স্বাস্থ্যসম্মত পরিবেশে প্রস্তুত করা হয়।</div></div>
+    <div class="rule-item"><div class="rule-num">২</div><div class="rule-text">লাঞ্চের অর্ডার সকাল ৮টা থেকে ৯টার মধ্যে করতে হবে।</div></div>
+    <div class="rule-item"><div class="rule-num">৩</div><div class="rule-text">খাবার ডেলিভারির পরই নির্ধারিত মূল্য প্রদান করতে হবে। কোনো ধার বা বাকির ব্যবস্থা নেই।</div></div>
+    <div class="rule-item"><div class="rule-num">৪</div><div class="rule-text">প্রতিটি খাবার তাজা ও মানসম্পন্ন উপকরণ দিয়ে ঘরোয়া পদ্ধতিতে রান্না করা হয়।</div></div>
+    <div class="rule-item"><div class="rule-num">৫</div><div class="rule-text">মেনুতে উল্লিখিত সব আইটেম সব সময় পাওয়া নাও যেতে পারে। সেক্ষেত্রে বিকল্প আইটেমের প্রস্তাব দেওয়া হবে।</div></div>
+    <div class="rule-item"><div class="rule-num">৬</div><div class="rule-text">অর্ডার দেওয়ার সময় নির্দিষ্ট খাবার, সময় ও ঠিকানা স্পষ্টভাবে জানাতে হবে।</div></div>
+    <div class="rule-item"><div class="rule-num">৭</div><div class="rule-text">বিশেষ অনুষ্ঠান বা বড় অর্ডারের ক্ষেত্রে কমপক্ষে ১৫ দিন আগে জানাতে হবে।</div></div>
+    <div class="rule-item"><div class="rule-num">৮</div><div class="rule-text">কোনো খাবারে অ্যালার্জি বা বিশেষ খাদ্য সংক্রান্ত সমস্যা থাকলে অর্ডারের সময় জানানো প্রয়োজন।</div></div>
+    <div class="rule-item"><div class="rule-num">৯</div><div class="rule-text">ট্রাফিক, আবহাওয়া বা অনিবার্য পরিস্থিতির কারণে ডেলিভারিতে সামান্য বিলম্ব হতে পারে।</div></div>
+    <div class="rule-item"><div class="rule-num">১০</div><div class="rule-text">খাবারের মেনু, পরিমাণ ও মূল্য প্রয়োজনে পরিবর্তিত হতে পারে।</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2>যোগাযোগ করুন</h2>
+      <div class="contact-item">
+        <div class="contact-icon">👩‍🍳</div>
+        <div class="contact-text">
+          <strong>পরিচালিকা</strong>
+          শ্রীমতী মৌপিয়া দত্ত
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-text">
+          <strong>ঠিকানা</strong>
+          রথতলা, সোনামুখী, বাঁকুড়া<br>
+          পরিষেবা এলাকা: সোনামুখী ও পার্শ্ববর্তী অঞ্চল
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🚚</div>
+        <div class="contact-text">
+          <strong>ডেলিভারি চার্জ</strong>
+          ২ কিমি পর্যন্ত বিনামূল্যে ডেলিভারি
+        </div>
+      </div>
+      <div class="order-note">
+        <strong>⚡ অর্ডার নোট:</strong><br>
+        লাঞ্চ: সকাল ৮–৯টার মধ্যে অর্ডার করুন।<br>
+        ব্রেকফাস্ট: সকাল ৯টার মধ্যে।<br>
+        ডিনার: বিকেল ৩–৫টার মধ্যে।<br>
+        সমস্ত খাবার ১ দিন আগেও অর্ডার করা যাবে।
+      </div>
+    </div>
+    <div>
+      <div class="contact-phone-btns">
+        <a href="tel:7384871985" class="phone-btn">
+          <span class="phone-btn-icon">📞</span>
+          <div>
+            <div style="font-size:0.8rem;font-weight:400;opacity:0.8">এখনই কল করুন</div>
+            7384871985
+          </div>
+        </a>
+        <a href="tel:9126962755" class="phone-btn">
+          <span class="phone-btn-icon">📱</span>
+          <div>
+            <div style="font-size:0.8rem;font-weight:400;opacity:0.8">বিকল্প নম্বর</div>
+            9126962755
+          </div>
+        </a>
+      </div>
+      <div style="margin-top:28px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:22px;">
+        <h4 style="color:var(--gold);font-family:'Noto Serif Bengali',serif;margin-bottom:14px;">🎉 বিশেষ পরিষেবা</h4>
+        <ul style="list-style:none;color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.8;">
+          <li>✅ বিয়ে, জন্মদিন, অন্নপ্রাশনের ক্যাটারিং</li>
+          <li>✅ প্যান্ডেল / লজ বুকিং</li>
+          <li>✅ মিনারেল ওয়াটার সরবরাহ</li>
+          <li>✅ আইসক্রিম সরবরাহ</li>
+          <li>✅ পছন্দমতো সম্পূর্ণ খাবারের কন্ট্র্যাক্ট</li>
+          <li>✅ মুড়ির প্যাকেট, চিঁড়া ভাজা, কোল্ড ড্রিংকস</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">🍽 তৃপ্তি হোম ডেলিভারি সার্ভিস</span>
+  <p>রথতলা, সোনামুখী, বাঁকুড়া | 📞 7384871985 / 9126962755</p>
+  <p style="margin-top:8px;font-size:0.8rem">পরিষ্কার-পরিচ্ছন্ন ও ঘরোয়া স্বাদের খাবার — সর্বদা আপনার সেবায় 💚</p>
+</footer>
+
+</body>
+</html>
